@@ -1,0 +1,58 @@
+registry_host: "10.0.0.6:5000"
+files_repo: "http://10.0.0.7"
+yum_repo: "http://10.0.0.6:8081/repository/yum-base"
+
+kube_image_repo: "{{ registry_host }}"
+gcr_image_repo: "{{ registry_host }}"
+docker_image_repo: "{{ registry_host }}"
+quay_image_repo: "{{ registry_host }}"
+
+kubeadm_download_url: "{{ files_repo }}/kubernetes/v1.23.5/kubeadm"
+kubectl_download_url: "{{ files_repo }}/kubernetes/v1.23.5/kubectl"
+kubelet_download_url: "{{ files_repo }}/kubernetes/v1.23.5/kubelet"
+# etcd is optional if you **DON'T** use etcd_deployment=host
+etcd_download_url: "{{ files_repo }}/kubernetes/etcd/etcd-v3.5.1-linux-amd64.tar.gz"
+cni_download_url: "{{ files_repo }}/kubernetes/cni/cni-plugins-linux-amd64-v1.0.1.tgz"
+crictl_download_url: "{{ files_repo }}/kubernetes/cri-tools/crictl-v1.23.0-linux-amd64.tar.gz"
+# If using Calico
+calicoctl_download_url: "{{ files_repo }}/kubernetes/calico/v3.21.4/calicoctl-linux-amd64"
+# If using Calico with kdd
+calico_crds_download_url: "{{ files_repo }}/kubernetes/calico/v3.21.4.tar.gz"
+# Containerd
+containerd_download_url: "{{ files_repo }}/containerd-{{ containerd_version }}-linux-{{ image_arch }}.tar.gz"
+runc_download_url: "{{ files_repo }}/runc.{{ image_arch }}"
+nerdctl_download_url: "{{ files_repo }}/nerdctl-{{ nerdctl_version }}-{{ ansible_system | lower }}-{{ image_arch }}.tar.gz"
+# Insecure registries for containerd
+containerd_insecure_registries:
+  - "{{ registry_host }}"
+
+# CentOS/Redhat/AlmaLinux/Rocky Linux
+## Docker / Containerd
+docker_rh_repo_base_url: "{{ yum_repo }}/docker-ce/$releasever/$basearch"
+docker_rh_repo_gpgkey: "{{ yum_repo }}/docker-ce/gpg"
+
+# Fedora
+## Docker
+docker_fedora_repo_base_url: "{{ yum_repo }}/docker-ce/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}"
+docker_fedora_repo_gpgkey: "{{ yum_repo }}/docker-ce/gpg"
+## Containerd
+containerd_fedora_repo_base_url: "{{ yum_repo }}/containerd"
+containerd_fedora_repo_gpgkey: "{{ yum_repo }}/docker-ce/gpg"
+
+# Debian
+## Docker
+docker_debian_repo_base_url: "{{ debian_repo }}/docker-ce"
+docker_debian_repo_gpgkey: "{{ debian_repo }}/docker-ce/gpg"
+## Containerd
+containerd_debian_repo_base_url: "{{ ubuntu_repo }}/containerd"
+containerd_debian_repo_gpgkey: "{{ ubuntu_repo }}/containerd/gpg"
+containerd_debian_repo_repokey: 'YOURREPOKEY'
+
+# Ubuntu
+## Docker
+docker_ubuntu_repo_base_url: "{{ ubuntu_repo }}/docker-ce"
+docker_ubuntu_repo_gpgkey: "{{ ubuntu_repo }}/docker-ce/gpg"
+## Containerd
+containerd_ubuntu_repo_base_url: "{{ ubuntu_repo }}/containerd"
+containerd_ubuntu_repo_gpgkey: "{{ ubuntu_repo }}/containerd/gpg"
+containerd_ubuntu_repo_repokey: 'YOURREPOKEY'
