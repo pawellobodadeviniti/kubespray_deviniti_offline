@@ -1,5 +1,5 @@
 # Use imutable image tags rather than mutable tags (like ubuntu:20.04)
-FROM ubuntu:focal-20220316
+FROM ubuntu:focal-20220426
 
 ARG TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
